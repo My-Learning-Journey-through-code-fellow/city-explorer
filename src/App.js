@@ -49,7 +49,7 @@ class App extends React.Component {
       // Use axios to make my API call
 
       // define my URL to send to axios:
-      let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
+      let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATION_API_KEY}&q=${this.state.city}&format=json`
 
       let cityData = await axios.get(url);
 
