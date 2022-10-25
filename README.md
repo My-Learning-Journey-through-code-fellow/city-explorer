@@ -20,12 +20,12 @@
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 
-Name of feature: ________________________________
+Name of feature: _________City Search_______________________
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: ___5hrs__
 
-Start time: _____
+Start time: ___3:30pm__
 
-Finish time: _____
+Finish time: ___9:30pm(1stDay) __
 
 Actual time needed to complete: _____
