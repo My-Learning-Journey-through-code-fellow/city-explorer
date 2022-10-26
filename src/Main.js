@@ -72,22 +72,24 @@ class Main extends React.Component {
 
   render() {
 
-    let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=10`
+    let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=11`
     console.log(mapURL);
 
     return (
       <>
 
-        <h1>API Call</h1>
+        <h1 id='Title'>City Explorer</h1>
 
         <main>
 
           <form onSubmit={this.getCityData}>
             <label > Pick a City!,<br></br>
               Then Press Enter!<br></br>
+              <br></br>
               <input type="text" onInput={this.handleInput} />
             </label>
           </form>
+          <br></br>
 
         </main>
 
@@ -111,7 +113,7 @@ class Main extends React.Component {
             <Card
               bg="light"
               style={{ width: '18rem' }}>
-              <Card.Img variant="top" src={this.state.cityData.mapURL} />
+              <Card.Img variant="top" src={mapURL} />
               <Card.Body>
                 <Card.Title>{this.state.cityData.display_name}</Card.Title>
                 <Card.Text>
