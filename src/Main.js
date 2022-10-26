@@ -1,6 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import CityCard from './CityCard.js';
+import 'bootstrap/dist/css/bootstrap.min.css';  //--Import Boostrap
+import Button from 'react-bootstrap/Button'; //-- Then Import React-Bootstrap
+import Toast from 'react-bootstrap/Toast';
+import Card from 'react-bootstrap/Card';
+// import Image from 'react-bootstrap/Image';
 
 
 class Main extends React.Component {
@@ -10,7 +14,7 @@ class Main extends React.Component {
       city: '',
       cityData: [],
       error: false,
-      errorMessage: ''
+      errorMessage: '',
     }
   }
 
@@ -47,7 +51,7 @@ class Main extends React.Component {
       });
 
       // FOR YOUR LAB YOU WILL NEED TO GET A MAP IMAGE SRC. Example:
-      // `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=47.6038321,-122.3300624&zoom=10`
+      // `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=47.6038321,-122.3300624&zoom=10`
 
     } catch (error) {
       console.log(error);
@@ -65,50 +69,65 @@ class Main extends React.Component {
     })
   };
 
+
   render() {
 
-    let cards = this.state.cityData.map((placeCard, index) => {
-      return <CityCard
-        _id={placeCard._id}
-        image_url={placeCard.image_url}
-        title={placeCard.title}
-        description={placeCard.description}
-        key={index}
-        handleOpenCard={() => this.handleOpenCard(placeCard)}
-      />
-    });
+    let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=10`
+    console.log(mapURL);
 
     return (
       <>
 
         <h1>API Call</h1>
 
+        <main>
 
-        <form onSubmit={this.getCityData}>
-          <label > Pick a City!
-            <input type="text" onInput={this.handleInput} />
-            <button type='submit'>Explore!</button>
-          </label>
-        </form>
-        <CityCard>
-        {this.state.cityData.display_name}
-        </CityCard>
+          <form onSubmit={this.getCityData}>
+            <label > Pick a City!,<br></br>
+              Then Press Enter!<br></br>
+              <input type="text" onInput={this.handleInput} />
+            </label>
+          </form>
+
+        </main>
 
 
         {/* Ternary W ? T : F */}
         {
           this.state.error
             ?
-            <p>{this.state.errorMessage}</p>
+
+            <Toast
+              bg="danger">
+              <Toast.Header>
+                <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+                <strong className="me-auto">Error</strong>
+                <small>Please try again</small>
+              </Toast.Header>
+              <Toast.Body>{this.state.errorMessage}</Toast.Body>
+            </Toast>
+
             :
-            <p>{cards}</p>
-
-
+            <Card
+              bg="light"
+              style={{ width: '18rem' }}>
+              <Card.Img variant="top" src={this.state.cityData.mapURL} />
+              <Card.Body>
+                <Card.Title>{this.state.cityData.display_name}</Card.Title>
+                <Card.Text>
+                  {this.state.cityData.lat}
+                  {this.state.cityData.lon}
+                </Card.Text>
+                <Button type='reset' variant="dark">Where Next?</Button>
+              </Card.Body>
+            </Card>
         }
+
+
       </>
     );
   }
-}
 
+};
 
 export default Main;
