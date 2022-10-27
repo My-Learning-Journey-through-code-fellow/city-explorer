@@ -32,10 +32,20 @@ Actual time needed to complete: _____
 
 Name of feature: _______**City Search**_____________________
 
-Estimate of time needed to complete: _**5hrs**
+Estimate of time needed to complete: _**7hrs**
 
 Start time: _**2:30pm**
 
 Finish time: ___9:30pm(2ndDay) __
+
+Actual time needed to complete: ___12 hours__
+
+Name of feature: _______**SERVER**_____________________
+
+Estimate of time needed to complete: _**5hrs**
+
+Start time: _**2:30pm**
+
+Finish time: ___7:30pm __
 
 Actual time needed to complete: _____
