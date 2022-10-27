@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';  //--Import Boostrap
 import Button from 'react-bootstrap/Button'; //-- Then Import React-Bootstrap
 import Toast from 'react-bootstrap/Toast';
 import Card from 'react-bootstrap/Card';
-import styling from './Main.css'
+import './Main.css'
 // import Image from 'react-bootstrap/Image';
 
 
