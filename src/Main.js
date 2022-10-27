@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';  //--Import Boostrap
 import Button from 'react-bootstrap/Button'; //-- Then Import React-Bootstrap
 import Toast from 'react-bootstrap/Toast';
 import Card from 'react-bootstrap/Card';
+import styling from './Main.css'
 // import Image from 'react-bootstrap/Image';
 
 
@@ -41,6 +42,9 @@ class Main extends React.Component {
 
       // define my URL to send to axios:
       let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATION_API_KEY}&q=${this.state.city}&format=json`
+
+      // let url = `${process.env.REACT_APP_SERVER}/weather?cityName=${this.state.cityName}`;
+
 
       let cityData = await axios.get(url);
 
@@ -111,6 +115,7 @@ class Main extends React.Component {
 
             :
             <Card
+              id="Card"
               bg="light"
               style={{ width: '18rem' }}>
               <Card.Img variant="top" src={mapURL} />
@@ -120,7 +125,7 @@ class Main extends React.Component {
                   {this.state.cityData.lat}
                   {this.state.cityData.lon}
                 </Card.Text>
-                <Button type='reset' variant="dark">Where Next?</Button>
+                <Button type="reset" variant="dark">Where Next?</Button>
               </Card.Body>
             </Card>
         }
