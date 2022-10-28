@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';  //--Import Boostrap
-import Button from 'react-bootstrap/Button'; //-- Then Import React-Bootstrap
-import Toast from 'react-bootstrap/Toast';
-import Card from 'react-bootstrap/Card';
 import './Main.css'
+import CityCard from './CityCard';
+import ErrorToast from './ErrorToast';
+
 // import Image from 'react-bootstrap/Image';
 
 
@@ -16,6 +16,9 @@ class Main extends React.Component {
       cityData: [],
       error: false,
       errorMessage: '',
+      mapURL: '',
+      lat: '',
+      lon: '',
     }
   }
 
@@ -76,8 +79,9 @@ class Main extends React.Component {
 
   render() {
 
-    let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=11`
-    console.log(mapURL);
+
+    // let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=11`;
+
 
     return (
       <>
@@ -103,34 +107,14 @@ class Main extends React.Component {
           this.state.error
             ?
 
-            <Toast
-              bg="danger">
-              <Toast.Header>
-                <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-                <strong className="me-auto">Error</strong>
-                <small>Please try again</small>
-              </Toast.Header>
-              <Toast.Body>{this.state.errorMessage}</Toast.Body>
-            </Toast>
+            <ErrorToast />
 
             :
-            <Card
-              id="Card"
-              bg="light"
-              style={{ width: '18rem' }}>
-              <Card.Img variant="top" src={mapURL} />
-              <Card.Body>
-                <Card.Title>{this.state.cityData.display_name}</Card.Title>
-                <Card.Text>
-                  {this.state.cityData.lat}
-                  {this.state.cityData.lon}
-                </Card.Text>
-                <Button type="reset" variant="dark">Where Next?</Button>
-              </Card.Body>
-            </Card>
+
+            <CityCard>
+              {/* <Card.Img variant="top" src={mapURL} /> */}
+            </CityCard>
         }
-
-
       </>
     );
   }
