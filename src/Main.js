@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';  //--Import Boostrap
 import './Main.css'
 import CityCard from './CityCard';
 import ErrorToast from './ErrorToast';
+// import MovieComp from './MovieComp';
+
 
 // import Image from 'react-bootstrap/Image';
 
@@ -16,11 +18,15 @@ class Main extends React.Component {
       cityData: [],
       error: false,
       errorMessage: '',
-      mapURL: '',
-      lat: '',
-      lon: '',
+      cityLat: '',
+      cityLon: '',
+      weatherErr: '',
+      weatherData: [],
+      showWeather: true,
+      showWeatherErr: false,
+      movieData: []
     }
-  }
+  } z
 
 
   // *** CITY DATA DEMO HANDLERS ***
@@ -46,19 +52,24 @@ class Main extends React.Component {
       // define my URL to send to axios:
       let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATION_API_KEY}&q=${this.state.city}&format=json`
 
+      // let url = `https://tdugar-city-explorer-server.herokuapp.com/weather?cityName=${this.state.cityName}`
+
       // let url = `${process.env.REACT_APP_SERVER}/weather?cityName=${this.state.cityName}`;
 
 
       let cityData = await axios.get(url);
 
       console.log(cityData.data[0]);
+      // this.handleMovie(cityData.data[0])
+      this.handleWeather(cityData.data[0])
       this.setState({
         cityData: cityData.data[0],
-        error: false
+        error: false,
+        cityLat: cityData.data[0].lat,
+        cityLon: cityData.data[0].lon,
+        showWeather: true,
+        show: true,
       });
-
-      // FOR YOUR LAB YOU WILL NEED TO GET A MAP IMAGE SRC. Example:
-      // `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=47.6038321,-122.3300624&zoom=10`
 
     } catch (error) {
       console.log(error);
@@ -69,27 +80,44 @@ class Main extends React.Component {
     }
   }
 
-  handleOpenCard = (cards) => {
-    this.setState({
-      showCArd: true,
-      selectedCard: cards,
-    })
-  };
+  handleWeather = async (location) => {
+    try {
+      let lat = location.lat;
+      let lon = location.lon;
+      const weatherData = await axios.get(`${process.env.REACT_APP_SERVER}/weather?cityName=${this.state.city}&lat=${lat}&lon=${lon}`)
+      this.setState({ weatherData: weatherData.data.description, showWeather: true })
+      console.log(this.state.weatherData)
+    } catch (error) {
+      console.log(error);
+      const weatherErr = error.response.data
+
+      this.setState({ weatherErr: weatherErr, showWeather: false, showWeatherErr: false })
+    }
+  }
+
+  // handleMovies = async (c) => {
+  //   try {
+  //     let cityName = city.lat;
+
+  //     const weatherData = await axios.get(`${process.env.REACT_APP_SERVER}/weather?cityName=${this.state.city}&lat=${lat}&lon=${lon}`)
+  //     this.setState({ weatherData: weatherData.data.description, showWeather: true })
+  //     console.log(this.state.weatherData)
+  //   } catch (error) {
+  //     console.log(error);
+  //     const weatherErr = error.response.data
+
+  //     this.setState({ weatherErr: weatherErr, showWeather: false, showWeatherErr: false })
+  //   }
+  // }
 
 
   render() {
-
-
-    // let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=11`;
-
 
     return (
       <>
 
         <h1 id='Title'>City Explorer</h1>
-
         <main>
-
           <form onSubmit={this.getCityData}>
             <label > Pick a City!,<br></br>
               Then Press Enter!<br></br>
@@ -98,22 +126,27 @@ class Main extends React.Component {
             </label>
           </form>
           <br></br>
-
         </main>
-
 
         {/* Ternary W ? T : F */}
         {
           this.state.error
             ?
 
-            <ErrorToast />
+            <ErrorToast
+              errorMessage={this.state.errorMessage}
+            />
 
             :
-
-            <CityCard>
-              {/* <Card.Img variant="top" src={mapURL} /> */}
-            </CityCard>
+            <>
+              <CityCard
+                cityData={this.state.cityData}
+                weatherData={this.state.weatherData}
+              />
+              {/* <MovieComp
+                movieData={this.state.movieData}
+              /> */}
+            </>
         }
       </>
     );
