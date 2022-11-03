@@ -41,7 +41,7 @@ Finish time: ___9:30pm(2ndDay) __
 Actual time needed to complete: _**12 hours**
 
 <!-- Lab 06 Diagram, Also in images folder -->
-![](vscode-remote://wsl%2Bubuntu/home/tdugar/projects/courses/301/city-explorer/images/WRRC_Lab06.png)
+<img src="./images/WRRC_Lab06.png">
 
 Name of feature: _______**SERVER**_____________________
 
@@ -51,15 +51,15 @@ Start time: _**2:30pm**
 
 Finish time: ___7:30pm __
 
-Actual time needed to complete: _____
+Actual time needed to complete: ___**6hrs**__
 
 <!-- Lab 07 Diagram, Also in Images Folder -->
 
-![](vscode-remote://wsl%2Bubuntu/home/tdugar/projects/courses/301/city-explorer/images/WRRC_Lab07.png)
+<img src="./images/WRRC_Lab07.png">
 
 <!-- Although I have not started on Lab 08 Due to complications with Lab07, the diagram has also been imported into the images folder as well-->
 
-![](vscode-remote://wsl%2Bubuntu/home/tdugar/projects/courses/301/city-explorer/images/WRRC_Lab08.png)
+<img src="/images/WRRC_Lab08.png">
 
 <!-- Lab 09 is below, Once stalled with map image complications after 9pm , I decided this is a problem for tomorrow -->
 
