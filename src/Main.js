@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';  //--Import Boostrap
 import './Main.css'
 import CityCard from './CityCard';
 import ErrorToast from './ErrorToast';
-// import MovieComp from './MovieComp';
+import MovieComp from './MovieComp';
 
 
 // import Image from 'react-bootstrap/Image';
@@ -24,7 +24,9 @@ class Main extends React.Component {
       weatherData: [],
       showWeather: true,
       showWeatherErr: false,
-      movieData: []
+      movie: [],
+      movieErr: false,
+      movieErrorMessage: '',
     }
   } z
 
@@ -69,6 +71,7 @@ class Main extends React.Component {
         cityLon: cityData.data[0].lon,
         showWeather: true,
         show: true,
+        showMovie: true,
       });
 
     } catch (error) {
@@ -95,20 +98,22 @@ class Main extends React.Component {
     }
   }
 
-  // handleMovies = async (c) => {
-  //   try {
-  //     let cityName = city.lat;
-
-  //     const weatherData = await axios.get(`${process.env.REACT_APP_SERVER}/weather?cityName=${this.state.city}&lat=${lat}&lon=${lon}`)
-  //     this.setState({ weatherData: weatherData.data.description, showWeather: true })
-  //     console.log(this.state.weatherData)
-  //   } catch (error) {
-  //     console.log(error);
-  //     const weatherErr = error.response.data
-
-  //     this.setState({ weatherErr: weatherErr, showWeather: false, showWeatherErr: false })
-  //   }
-  // }
+  handleMovies = async (movie) => {
+    try {
+      let movieData = await axios.get(`${process.env.REACT_APP_MOVIE_API}/movies?city_name=${this.state.city}`)
+      this.setState({
+        movieData: movieData.data.results,
+        movieErr: false,
+      })
+      console.log(this.state.movieData)
+    } catch (error) {
+      console.log(error);
+      this.setState({
+        movieErr: true,
+        movieErrorMessage: error.message
+      })
+    }
+  }
 
 
   render() {
@@ -143,9 +148,11 @@ class Main extends React.Component {
                 cityData={this.state.cityData}
                 weatherData={this.state.weatherData}
               />
-              {/* <MovieComp
-                movieData={this.state.movieData}
-              /> */}
+              <MovieComp
+                movies={this.state.movie}
+                error={this.state.movieErr}
+                errorMessage={this.state.movieErrorMessage}
+              />
             </>
         }
       </>
